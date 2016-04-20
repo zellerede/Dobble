@@ -13,5 +13,6 @@ Now the cards will correspond to points and the pictures (numbers) in the cards 
 
 1. Open a python2 terminal.
 2. Issue `execfile('dobble_plane.py')`
-3. Type `p`. 
-4. Try `p.show(3)` to show line number 3 or `p.show(D02)` to see the point `D02` on the plane, etc.
+3. Type `p`.
+4. For getting coordinates, ask e.g. `D18.xy` or `D18.x, D18.y`
+5. Try `p.show(3)` to show line number 3 or `p.show(D02)` to see the point `D02` on the plane, etc.
