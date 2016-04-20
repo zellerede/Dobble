@@ -1,0 +1,12 @@
+(python2.7)
+
+<h3>Dobble_plane.py</h3>
+
+Currently runs only in python terminal. <br>
+
+Finite plane of 7x7 points is represented by shuffled *Dobble* type cards.
+
+Each card has 8 pictures (represented here by numbers between 1 and 57), and every two cards have **exactly one** picture in common.
+
+Usage:
+Type `p`. Then `p.show(3)` to show line number 3 or `p.show(D02)` to see the point `D02` on the plane.
