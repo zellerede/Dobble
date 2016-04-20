@@ -7,6 +7,7 @@ Currently runs only in python terminal. <br>
 Finite plane of 7x7 points is represented by shuffled *Dobble* type cards.
 
 Each card has 8 pictures (represented here by numbers between 1 and 57), and every two cards have **exactly one** picture in common.
+Now the cards will correspond to points and the pictures (numbers) in the cards correspond to lines. Ideal points and ideal lines are included.
 
 **Usage:**
 
