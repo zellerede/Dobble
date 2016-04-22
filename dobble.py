@@ -1,5 +1,3 @@
-from random import shuffle
-
 dobble = [ 
 # numbers represent lines, the tuples the points of projective plane over GF(7)
   (8, 15, 22, 29, 36, 43, 50, 51),
@@ -61,4 +59,3 @@ dobble = [
   (5, 12, 19, 26, 33, 40, 47, 51) 
 ]
 
-shuffle(dobble)

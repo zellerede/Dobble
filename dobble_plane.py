@@ -1,3 +1,4 @@
+from random import seed, shuffle
 from itertools import product
 
 from dobble import dobble
@@ -56,8 +57,7 @@ range7x7 = list(product(range7, range7))
 
 class Plane(dict):
     def __init__(self):
-        #Horiz, Vert, O = pts[:3]
-        #ideal = Horiz&Vert
+        generate_plane()
         self.Horiz, self.Vert, self.O = pts[:3]
         self.ideal = self.Horiz & self.Vert
         
@@ -95,6 +95,8 @@ class Plane(dict):
         BD = self[B] & J
         CD = self[C] & I
         self[D] = BD & CD
+    
+    collinear = lambda self, pt1,pt2,pt3: pt3 in (pt1&pt2)
 
     def __repr__(self):
         picture = ''
@@ -130,14 +132,26 @@ class Plane(dict):
         print self.show_if(lambda x,y: (x,y) == pt.xy)
 
     def show_line(self, line):
-        print self.show_if(lambda x,y: self[x,y] in line)      
+        print self.show_if(lambda x,y: self[x,y] in line)
 
+def generate_plane():
+    """ following variables made global to be reachable by user:
+          pts: the points of the board, pts[0]..pts[56] (each of type Point),
+               including _ideal points_ which are not seen on board.
+          L=lines: the lines on the board, L[1]..L[57] (each of type Line)
+          D00,D01,...,D56: synonyms for pts[0]..pts[56] """
+    global pts, L, lines
+    pts = map( Point, range(57) )
+    L = lines = {i: Line(i) for i in range(1,58)}
+    globals().update({pt.written : pt for pt in pts})
 
-pts = map( Point, range(len(dobble)) )
-L = lines = {i: Line(i) for i in range(1,58)}
+def main():
+    global p
 
-globals().update({pt.written : pt for pt in pts})
-
-if __name__ == '__main__':
+    seed()
+    shuffle(dobble)
     p = Plane()
     print p
+
+if __name__ == '__main__':
+    main()
