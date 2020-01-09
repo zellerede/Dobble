@@ -1,6 +1,7 @@
-const PRIME = 7;
+let PRIME = 7;
 const cvs = document.getElementById('square7x7');
 const c = cvs.getContext('2d');
+let myFrame = cvs.getBoundingClientRect();
 
 let mouse = {
     x: undefined,
@@ -12,28 +13,29 @@ let direction = {x: 1, y: 0};
 let directionVector = [undefined, undefined];
 
 function applyWindowSize() {
-    cvs.width = window.innerWidth;
-    cvs.height = window.innerHeight;
+    myFrame = cvs.getBoundingClientRect();
+    cvs.width = 40 * (PRIME+2);
+    cvs.height = 40 * (PRIME+0.5);
 }
 
 window.addEventListener('resize', () => {
   applyWindowSize();
 });
 
-window.addEventListener('mousemove', (event) => {
-  mouse.x = event.x;
-  mouse.y = event.y;
-});
+cvs.onmousemove = (event) => {
+    mouse.x = event.x - myFrame.left;
+    mouse.y = event.y - myFrame.top;
+};
 
-window.addEventListener('mousedown', (event) => {
+cvs.onmousedown = (event) => {
     mouse.held = true;
     onMouseDown(event);
-});
+};
 
-window.addEventListener('mouseup', (event) => {
+cvs.onmouseup = (event) => {
     mouse.held = false;
     onMouseUp(event);
-});
+};
 
 
 class Dot {
@@ -92,7 +94,7 @@ class MatrixDot {
     hovered = () => {
         hoveredDot = this;
         if (! mouse.held) {
-            dotHovered(this.x, this.y);
+            drawALine(this.x, this.y);
         }
     }
 
@@ -101,13 +103,16 @@ class MatrixDot {
 const dots = [];
 var hoveredDot = undefined;
 
-for (let y = 0; y < PRIME; y++) {
-    for (let x = 0; x < PRIME; x++) {
-        dots.push(new MatrixDot(x,y));
+function initializeDots() {
+    dots.length = 0; // clear the array
+    for (let y = 0; y < PRIME; y++) {
+        for (let x = 0; x < PRIME; x++) {
+            dots.push(new MatrixDot(x,y));
+        }
     }
 }
 
-function dotHovered(x,y) {
+function drawALine(x,y) {
     dots.forEach( (dot) => {
         dot.onLine = false;
     });
@@ -139,9 +144,10 @@ function onMouseUp(event) {
 
 function animate() {
   requestAnimationFrame(animate);
-  c.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  c.clearRect(0, 0, cvs.width, cvs.height);
   dots.forEach(dot => dot.draw())
 };
 
+initializeDots();
 applyWindowSize();
 animate();
