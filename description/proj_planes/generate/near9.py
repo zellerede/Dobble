@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+""" Generates lines on affine plane based on a NearField of 9 elements
+    and writes it in a json file """
+
+import json
+
 h,i,j = 2,3,4
 MUL_TABLE = {
     (i,i): -1, (i,j): h, (i,h): j,
@@ -27,6 +32,7 @@ def mod3(n):
 
 class Near9:
     elements = {}
+
     def __new__(cls, num):
         elem = cls.elements.get(num)
         if elem is not None: return elem
@@ -36,18 +42,42 @@ class Near9:
 
     def __init__(self, num):
         self.num = num
-        self.id = num +4
+        self.id = num + 4  # num +9*(num<0)  # to keep 0..4
+    
     def __repr__(self):
         return repr(self.num).replace('2','h').replace('3','i').replace('4','j')
+
     def __mul__(self, other):
         return Near9(MUL_TABLE[self.num, other.num])
+
     def __neg__(self):
         return Near9(-self.num)
+
     def __add__(self, other):
         b1, b2 = mod3(self.num), mod3(other.num)
         a1, a2 = (self.num - b1) // 3, (other.num - b2) // 3
         return Near9( mod3(a1+a2) * 3 + mod3(b1+b2) )
 
+Near9.range = list(map(Near9, range(-4,5)))
+
+
+def generateAllLines():
+    parallels = []
+    for m in Near9.range:
+        if m == Near9(0): continue
+        lines = []
+        for c in Near9.range:
+            lines.append( generateLine(m, c))
+        parallels.append(lines)
+    return parallels
+
+def generateLine(m,c):
+    line = [(m*x + c).id  for x in Near9.range]
+    return line
+
+ 
 #
 if __name__ == "__main__":
-    "TODO: generate lines on affine plane and write json"
+    parallels = generateAllLines()
+    with open('near9.json', 'w') as f:
+        json.dump(parallels, f)
