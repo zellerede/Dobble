@@ -5,11 +5,11 @@
 
 import json
 
-h,i,j = 2,3,4
+k,i,j = 2,3,4
 MUL_TABLE = {
-    (i,i): -1, (i,j): h, (i,h): j,
-    (j,i): -h, (j,j): 1, (j,h): i,
-    (h,i): -j, (h,j): i, (h,h): -1
+    (i,i): -1, (i,k): -j, (i,j): k,
+    (k,i): j,  (k,k): -1, (k,j): -i,
+    (j,i): -k, (j,k): i,  (j,j): -1
 }
 
 def extend_mul_table():
