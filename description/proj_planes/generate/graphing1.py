@@ -91,17 +91,17 @@ Ecyc = {t for t in CYC[12] if t.count(1)<=1}
 
 
 C1 = [] 
-  for cyc in Ecyc: 
-      p = [] 
-      x = 0 
-      for l in cyc: 
-          start = x 
-          for i in range(l-1): 
-              x += 1 
-              p.append(x) 
-          p.append(start) 
-          x += 1 
-      C1.append(tuple(p)) 
+for cyc in Ecyc: 
+    p = [] 
+    x = 0 
+    for l in cyc: 
+        start = x 
+        for i in range(l-1): 
+            x += 1 
+            p.append(x) 
+        p.append(start) 
+        x += 1 
+    C1.append(tuple(p)) 
 
 # this results in
 C1 = [

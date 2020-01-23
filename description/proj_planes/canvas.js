@@ -1,4 +1,9 @@
-let N = plane.length;
+const planes = [plane2, plane3, plane4, plane5, plane7, plane8, plane9, plane9a, plane11];
+let plane = plane11;  // read from cache (localstorage)
+
+// todo: select plane
+
+let N = plane.lines[0].length;
 const horizontals = [];
 for (let i=0; i<N; i++) {
     horizontals.push( Array(N).fill(i) );

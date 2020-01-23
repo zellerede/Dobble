@@ -1,4 +1,3 @@
-const plane = {
-    length: 2,
+const plane2 = {
     lines: [[[0,1], [1,0]]]
 };

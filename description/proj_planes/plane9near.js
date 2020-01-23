@@ -1,5 +1,4 @@
-const plane = {
-    length: 9,
+const plane9a = {
     lines: 
   [[[2, 5, 6, 4, 0, 8, 3, 7, 1],
     [0, 3, 7, 5, 1, 6, 4, 8, 2],
