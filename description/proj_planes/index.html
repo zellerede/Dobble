@@ -16,12 +16,36 @@
   <script type="text/javascript" src="plane9desarg.js"></script>
   <script type="text/javascript" src="plane9near.js"></script>
   <script type="text/javascript" src="plane11.js"></script>
+  <script type="text/javascript" src="plane13.js"></script>
   <script type="text/javascript" src="canvas.js" async></script>
 </head>
 
 <body>
 
-  <canvas id="squareNxN"></canvas>
+  <h1>Finite Affine Planes</h1>
+  <paragraph> Connect any two points by pressing the mouse at one point
+              and releasing at the other point. 
+              This also chooses the direction of 'parallel' lines that are
+              shown by hovering over any point.
+  </paragraph>
+  <div class="horizontal">
+    <canvas id="squareNxN"></canvas>
+    <div class="left">
+      <span>Choose finite plane:</span>
+      <select id="choose" onchange="planeSelected(this.value)">
+        <option value="2">plane2</option>
+        <option value="3" selected>plane3</option>
+        <option value="4">plane4</option>
+        <option value="5">plane5</option>
+        <option value="7">plane7</option>
+        <option value="8">plane8</option>
+        <option value="9">plane9</option>
+        <option value="9a">nondesarg9</option>
+        <option value="11">plane11</option>
+        <option value="13">plane13</option>
+      </select>
+    </div>
+  </div>
 
 </body>
 

@@ -1,15 +1,32 @@
-const planes = [plane2, plane3, plane4, plane5, plane7, plane8, plane9, plane9a, plane11];
-let plane = plane11;  // read from cache (localstorage)
+const planes = {
+    2: plane2, 3: plane3, 4: plane4, 5: plane5, 7: plane7, 
+    8: plane8, 9: plane9, '9a': plane9a, 11: plane11, 13: plane13
+};
+let plane = plane3;  // read from cache (localstorage)
 
-// todo: select plane
+var N, parallels, allLines, direction, directionVector;
 
-let N = plane.lines[0].length;
-const horizontals = [];
-for (let i=0; i<N; i++) {
-    horizontals.push( Array(N).fill(i) );
+function prepareAllLines() {
+    N = plane.lines[0].length;
+
+    let horizontals = [];
+    for (let i=0; i<N; i++) {
+        horizontals.push( Array(N).fill(i) );
+    }
+    var lineCodes = [...plane.lines];
+    lineCodes.unshift(horizontals);
+
+    parallels = lineCodes.map( (parCodes) => parCodes.map(
+        (lineCode) => new Line(lineCode)
+    ));
+    
+    let verticals = [];
+    for (let i=0; i<N; i++) {
+        verticals.push( new VerticalLine(i) );
+    }
+    parallels.push(verticals);
+    allLines = parallels.flat();
 }
-var lineCodes = plane.lines;
-lineCodes.unshift(horizontals);
 
 class Line {
     constructor(lineCode) {
@@ -29,16 +46,7 @@ class VerticalLine {
     has = (dot) => (this.x == dot.x);
 }
 
-const parallels = lineCodes.map( (parCodes) => parCodes.map(
-    (lineCode) => new Line(lineCode)
-));
-
-let verticals = [];
-for (let i=0; i<N; i++) {
-    verticals.push( new VerticalLine(i) );
-}
-parallels.push(verticals);
-const allLines = parallels.flat();
+prepareAllLines();
 
 //
 const cvs = document.getElementById('squareNxN');
@@ -50,9 +58,6 @@ let mouse = {
     y: undefined,
     held: false
 };
-
-let direction = 0;
-let directionVector = [undefined, undefined];
 
 function applyWindowSize() {
     myFrame = cvs.getBoundingClientRect();
@@ -154,6 +159,11 @@ function initializeDots() {
     }
 }
 
+function clearDirection() {
+    direction = 0;
+    directionVector = [undefined, undefined];
+}
+
 function drawALine(matrixDot) {
     var myLine = parallels[direction].filter(line => line.has(matrixDot))[0];
     dots.forEach( (dot) => {
@@ -180,12 +190,24 @@ function onMouseUp(event) {
     }
 }
 
+function planeSelected(planeId) {
+    console.log(planeId);   
+    plane = planes[planeId];
+    prepareAllLines();
+    runIt();
+}
+
 function animate() {
   requestAnimationFrame(animate);
   c.clearRect(0, 0, cvs.width, cvs.height);
   dots.forEach(dot => dot.draw())
 };
 
-initializeDots();
-applyWindowSize();
-animate();
+function runIt() {
+  initializeDots();
+  clearDirection();
+  applyWindowSize();
+  animate();
+}
+
+runIt();

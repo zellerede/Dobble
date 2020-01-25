@@ -2,7 +2,7 @@
 from itertools import permutations
 
 def init(n):
-    global N, R, E, E1, comp, inv
+    global N, R, E, E1, comp, inv, nbr
     if n>20:
         raise ValueError("Forget about big numbers")
     N = n
@@ -48,3 +48,4 @@ def dedicated_conjugate(p):
     return comp(inv(g),p,g)
 
 # pE = {pe : e in E} = gqg^(-1)E = g(qE)g^(-1)
+# pE & E = gqEg^{-1} & gEg^{-1} = g(qE & E)g^{-1}

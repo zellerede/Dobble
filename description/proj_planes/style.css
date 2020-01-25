@@ -4,5 +4,17 @@ body {
 }
 
 canvas {
-    // background: linear-gradient(45deg, #0d1011 0% 20%, #163486);
+    /* background: linear-gradient(45deg, #0d1011 0% 20%, #163486); */
+    margin-top: 1pc;
+    margin-left: 3pc;
+    border: 2px solid blueviolet;
+    padding-bottom: 2pc;
+}
+
+.left {
+    float: left;
+    width: auto;
+    text-align: center;
+    border: 2px solid cyan;
+    margin-top: 20%;
 }
