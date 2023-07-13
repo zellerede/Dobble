@@ -45,7 +45,7 @@ class Near9:
         self.id = num + 4  # num +9*(num<0)  # to keep 0..4
     
     def __repr__(self):
-        return repr(self.num).replace('2','h').replace('3','i').replace('4','j')
+        return repr(self.num).replace('2','k').replace('3','i').replace('4','j')
 
     def __mul__(self, other):
         return Near9(MUL_TABLE[self.num, other.num])
